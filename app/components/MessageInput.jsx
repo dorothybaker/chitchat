@@ -51,9 +51,9 @@ export default function MessageInput({
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setFile(null);
           setImage(downloadURL);
           setImagePreview(null);
+          setFile(null);
         });
       }
     );
@@ -118,11 +118,7 @@ export default function MessageInput({
               </button>
 
               <div>
-                <progress
-                  value={uploadProgress}
-                  max="100"
-                  className="rounded-sm"
-                ></progress>
+                <progress value={uploadProgress} max="100"></progress>
               </div>
 
               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
