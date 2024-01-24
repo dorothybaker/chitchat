@@ -64,15 +64,17 @@ export default function MessageInput({
   };
 
   return (
-    <div className="sticky bottom-0">
+    <div className="sm:sticky fixed w-full bottom-0">
       <div className="flex items-center px-2 py-4 border-t bg-background gap-1 relative overflow-hidden justify-between">
-        <Paperclip
-          className={`cursor-pointer ${
-            image ? "text-primary" : "text-foreground"
-          }`}
-          size={15}
-          onClick={() => document.getElementById("my_modal_3").showModal()}
-        />
+        <div>
+          <Paperclip
+            className={`cursor-pointer ${
+              image ? "text-primary" : "text-foreground"
+            }`}
+            size={15}
+            onClick={() => document.getElementById("my_modal_3").showModal()}
+          />
+        </div>
         <button
           onClick={() => setShowEmojiPicker(!showEmojiPicker)}
           className="relative"
