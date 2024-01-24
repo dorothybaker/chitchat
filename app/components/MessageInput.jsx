@@ -64,7 +64,7 @@ export default function MessageInput({
   };
 
   return (
-    <div className="flex items-center p-2 border-t bg-background gap-1 relative">
+    <div className="flex items-center px-2 py-4 border-t bg-background gap-1 sticky bottom-0 w-full overflow-hidden">
       <div>
         <Paperclip
           className={`cursor-pointer ${
@@ -74,11 +74,16 @@ export default function MessageInput({
           onClick={() => document.getElementById("my_modal_3").showModal()}
         />
       </div>
-      <button onClick={() => setShowEmojiPicker(!showEmojiPicker)}>😊</button>
+      <button
+        onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+        className="relative"
+      >
+        😊
+      </button>
 
       <input
         type="text"
-        className="flex-1 outline-none focus:outline-none border-none p-2 text-foreground"
+        className="flex-1 outline-none focus:outline-none border-none text-foreground"
         placeholder="Type a message"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
@@ -109,11 +114,13 @@ export default function MessageInput({
               Upload
             </button>
 
-            <progress
-              value={uploadProgress}
-              max="100"
-              className="rounded-sm"
-            ></progress>
+            <div>
+              <progress
+                value={uploadProgress}
+                max="100"
+                className="rounded-sm"
+              ></progress>
+            </div>
 
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
               ✕
