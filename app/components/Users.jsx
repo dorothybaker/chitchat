@@ -18,7 +18,7 @@ import toast from "react-hot-toast";
 import moment from "moment";
 
 export default function Users({ userData, setSelectedChatroom }) {
-  const [activeTab, setActiveTab] = useState("users");
+  const [activeTab, setActiveTab] = useState("chats");
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
   const [users, setUsers] = useState([]);
@@ -55,9 +55,12 @@ export default function Users({ userData, setSelectedChatroom }) {
 
     try {
       const existingChatroomSnapshot = await getDocs(existingChatroom);
-    const existingChatroomSnapshot2 = await getDocs(existingChatroom2);
+      const existingChatroomSnapshot2 = await getDocs(existingChatroom2);
 
-      if (existingChatroomSnapshot.docs.length > 0 || existingChatroomSnapshot2.docs.length > 0) {
+      if (
+        existingChatroomSnapshot.docs.length > 0 ||
+        existingChatroomSnapshot2.docs.length > 0
+      ) {
         toast.error("Chatroom already exists!");
         return;
       }
@@ -190,6 +193,7 @@ export default function Users({ userData, setSelectedChatroom }) {
                       ].avatarUrl
                     }
                     latestMessage={chatroom.latestMessage}
+                    time={timeFormat(chatroom.time)}
                     type={"chat"}
                   />
                 </div>

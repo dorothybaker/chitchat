@@ -64,36 +64,30 @@ export default function MessageInput({
   };
 
   return (
-    <div className="fixed bottom-0 w-full">
-      <div className="flex items-center px-2 py-4 border-t bg-background gap-1 relative w-full overflow-hidden justify-between">
-        <div className="flex items-center gap-1 flex-auto">
-          <div>
-            <Paperclip
-              className={`cursor-pointer ${
-                image ? "text-primary" : "text-foreground"
-              }`}
-              size={15}
-              onClick={() => document.getElementById("my_modal_3").showModal()}
-            />
-          </div>
-          <button
-            onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-            className="relative"
-          >
-            😊
-          </button>
+    <div className="sticky bottom-0">
+      <div className="flex items-center px-2 py-4 border-t bg-background gap-1 relative overflow-hidden justify-between">
+        <Paperclip
+          className={`cursor-pointer ${
+            image ? "text-primary" : "text-foreground"
+          }`}
+          size={15}
+          onClick={() => document.getElementById("my_modal_3").showModal()}
+        />
+        <button
+          onClick={() => setShowEmojiPicker(!showEmojiPicker)}
+          className="relative"
+        >
+          😊
+        </button>
 
-          <input
-            type="text"
-            className="sm:flex-1 outline-none focus:outline-none border-none text-foreground w-full"
-            placeholder="Type a message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-        </div>
-        <div className="flex-1">
-          <Send className="cursor-pointer text-primary" onClick={sendMessage} />
-        </div>
+        <input
+          type="text"
+          className="sm:flex-1 outline-none focus:outline-none border-none text-foreground w-full"
+          placeholder="Type a message"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
+        <Send className="cursor-pointer text-primary" onClick={sendMessage} />
 
         {showEmojiPicker && (
           <div className="absolute right-0 bottom-full p-2">

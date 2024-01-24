@@ -1,8 +1,8 @@
-import { Poppins } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 
-const poppins = Poppins({ subsets: ["latin"], weight: "400" });
+const poppins = Inter({ subsets: ["latin"], weight: "400" });
 
 export const metadata = {
   title: "ChitChat",

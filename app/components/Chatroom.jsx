@@ -77,13 +77,15 @@ export default function Chatroom({ user, selectedChatroom }) {
   useEffect(() => {
     // Scroll to the bottom when messages change
     if (messagesContainerRef.current) {
-      messagesContainerRef.current.scrollTop =
-        messagesContainerRef.current.scrollHeight;
+      messagesContainerRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
 
   return (
-    <div className="h-full relative flex flex-col overflow-y-auto">
+    <div
+      className="h-full relative flex flex-col overflow-y-auto"
+      ref={messagesContainerRef}
+    >
       {selectedChatroom ? (
         <div className="flex-1 flex flex-col gap-5 sm:px-4 px-2 pb-20 w-full">
           {selectedChatroom && (

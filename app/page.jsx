@@ -41,10 +41,12 @@ export default function Home() {
   return (
     <div className="h-screen mx-auto max-w-7xl flex relative">
       <div
-        className="absolute right-2 top-1 z-[100] md:hidden block"
+        className="absolute right-2 top-3 z-[100] md:hidden block"
         onClick={toggleMobileView}
       >
-        <PanelRightOpen className="my-3 text-primary cursor-pointer" />
+        <button className="bg-primary text-background px-3 py-1 rounded-md cursor-pointer">
+          Menu
+        </button>
       </div>
 
       {mobileView && (
