@@ -64,7 +64,7 @@ export default function MessageInput({
   };
 
   return (
-    <div className="sticky bottom-0">
+    <div className="fixed bottom-0 w-full">
       <div className="flex items-center px-2 py-4 border-t bg-background gap-1 relative w-full overflow-hidden justify-between">
         <div className="flex items-center gap-1 flex-auto">
           <div>

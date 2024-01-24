@@ -85,7 +85,7 @@ export default function Chatroom({ user, selectedChatroom }) {
   return (
     <div className="h-full relative flex flex-col overflow-y-auto">
       {selectedChatroom ? (
-        <div className="flex-1 flex flex-col gap-5 sm:px-4 px-2 pb-4 w-full">
+        <div className="flex-1 flex flex-col gap-5 sm:px-4 px-2 pb-20 w-full">
           {selectedChatroom && (
             <div className="border-b sticky top-0 flex gap-2 items-center p-2 bg-background z-40 w-full">
               <div className="h-10 w-10">
