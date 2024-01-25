@@ -19,7 +19,7 @@ export default function MessageCard({ message, me, other }) {
       <div
         className={`${
           isMessageFromMe
-            ? "self-end bg-foreground/50 rounded-s-2xl rounded-tr-2xl text-end"
+            ? "self-end bg-foreground/65 rounded-s-2xl rounded-tr-2xl text-end"
             : "self-start bg-primary/90 rounded-e-2xl rounded-tl-2xl text-start"
         } text-background w-max max-w-[600px] p-2`}
       >
