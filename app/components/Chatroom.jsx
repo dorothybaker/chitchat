@@ -103,7 +103,7 @@ export default function Chatroom({ user, selectedChatroom }) {
             </div>
             <h1 className="font-semibold text-lg">{other.name}</h1>
           </div>
-          <div className="flex-1 flex flex-col gap-3 sm:px-4 px-2 sm:pb-4 pb-20 pt-[70px] w-full">
+          <div className="flex-1 flex flex-col gap-3 sm:px-4 px-2 sm:pb-3 pb-20 pt-[70px] w-full">
             {messages.map((message, index) => (
               <MessageCard
                 message={message}

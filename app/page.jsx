@@ -41,7 +41,7 @@ export default function Home() {
   return (
     <div className="h-screen mx-auto max-w-7xl flex relative">
       <div
-        className="absolute right-2 top-3 z-[100] md:hidden block"
+        className="fixed right-2 top-4 z-[100] md:hidden block"
         onClick={toggleMobileView}
       >
         <button className="bg-primary text-background px-3 py-1 rounded-md cursor-pointer">
