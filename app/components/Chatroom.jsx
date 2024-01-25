@@ -128,7 +128,7 @@ export default function Chatroom({ user, selectedChatroom }) {
       ) : (
         <input
           type="text"
-          className="w-full p-4 focus:outline-none border-t block placeholder-primary/60 fixed bottom-0"
+          className="w-full p-4 focus:outline-none border-t block placeholder-foreground/60 fixed bottom-0"
           disabled
           placeholder="Select a user to start chatting..."
         />
