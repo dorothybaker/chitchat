@@ -51,7 +51,11 @@ export default function Home() {
 
       {mobileView && (
         <div className="absolute left-0 right-0 w-[90vw] z-50 bg-background">
-          <Users userData={user} setSelectedChatroom={setSelectedChatroom} />
+          <Users
+            userData={user}
+            setSelectedChatroom={setSelectedChatroom}
+            setMobileView={setMobileView}
+          />
         </div>
       )}
       <div className="flex-shrink-0 lg:w-3/12 md:w-1/3 border-r md:block hidden">

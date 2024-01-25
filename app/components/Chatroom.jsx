@@ -88,9 +88,9 @@ export default function Chatroom({ user, selectedChatroom }) {
   }, [messages]);
 
   return (
-    <div className="h-full relative flex flex-col overflow-y-auto">
+    <div className="h-screen relative flex flex-col overflow-y-auto">
       {selectedChatroom ? (
-        <div ref={messagesContainerRef}>
+        <div ref={messagesContainerRef} className="flex-1">
           <div className="border-b fixed top-0 flex gap-2 items-center p-2 bg-background z-40 w-full">
             <div className="h-10 w-10">
               <img

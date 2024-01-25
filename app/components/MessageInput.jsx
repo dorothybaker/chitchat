@@ -70,7 +70,7 @@ function MessageInput({ sendMessage, message, setMessage, image, setImage }) {
   };
 
   return (
-    <div className="sticky bottom-0 w-full border-t p-2 bg-background">
+    <div className="sm:sticky fixed bottom-0 w-full border-t p-2 bg-background">
       <div className="relative flex items-center">
         <FaPaperclip
           onClick={() => document.getElementById("my_modal_3").showModal()}

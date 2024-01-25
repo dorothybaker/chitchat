@@ -17,7 +17,11 @@ import {
 import toast from "react-hot-toast";
 import moment from "moment";
 
-export default function Users({ userData, setSelectedChatroom }) {
+export default function Users({
+  userData,
+  setSelectedChatroom,
+  setMobileView,
+}) {
   const [activeTab, setActiveTab] = useState("chats");
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
@@ -180,7 +184,12 @@ export default function Users({ userData, setSelectedChatroom }) {
           <div className="flex flex-col gap-3">
             {!loading2 &&
               userChatrooms.map((chatroom) => (
-                <div key={chatroom.id} onClick={() => openChat(chatroom)}>
+                <div
+                  key={chatroom.id}
+                  onClick={() => {
+                    openChat(chatroom), setMobileView(false);
+                  }}
+                >
                   <UserCard
                     name={
                       chatroom.usersData[
