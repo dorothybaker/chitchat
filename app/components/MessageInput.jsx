@@ -1,44 +1,44 @@
-import { app } from "@/lib/firebase";
-import EmojiPicker from "emoji-picker-react";
+import React, { useState } from "react";
+import { FaPaperclip, FaPaperPlane } from "react-icons/fa";
 import {
-  getDownloadURL,
   getStorage,
   ref,
   uploadBytesResumable,
+  getDownloadURL,
 } from "firebase/storage";
-import { Paperclip, Send } from "lucide-react";
-import { useState } from "react";
+import { app } from "@/lib/firebase";
+import EmojiPicker from "emoji-picker-react";
 
-export default function MessageInput({
-  sendMessage,
-  message,
-  setMessage,
-  image,
-  setImage,
-}) {
-  const storage = getStorage(app);
+function MessageInput({ sendMessage, message, setMessage, image, setImage }) {
   const [file, setFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
-  const [showEmojiPicker, setShowEmojiPicker] = useState(null);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
+  // Initialize storage object
+  const storage = getStorage(app);
 
   const handleFileChange = (e) => {
-    const f = e.target.files[0];
-    if (f) {
-      setFile(f);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result);
-      };
-      reader.readAsDataURL(f);
-    }
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+
+    // Display image preview
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(selectedFile);
   };
 
   const handleUpload = async () => {
-    if (!file) return;
+    if (!file) {
+      console.error("No file selected.");
+      return;
+    }
 
-    const storageRef = ref(storage, `chatroom_images/${file.name}`);
+    const storageRef = ref(storage, `images/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
+
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -47,83 +47,96 @@ export default function MessageInput({
         setUploadProgress(progress);
       },
       (error) => {
-        console.log(error);
+        console.error("Error uploading file:", error.message);
       },
       () => {
+        // Upload complete, get download URL and log it
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setImage(downloadURL);
-          setImagePreview(null);
+          console.log("File available at", downloadURL);
+          // Reset file state and update message with download URL
           setFile(null);
+          setImage(downloadURL);
+          // Clear image preview
+          setImagePreview(null);
+          document.getElementById("my_modal_3").close();
         });
       }
     );
   };
 
-  const handleEmojiClick = (emojiData, e) => {
-    setMessage((prev) => prev + emojiData.emoji);
+  const handleEmojiClick = (emojiData, event) => {
+    // Append the selected emoji to the message state
+    setMessage((prevMessage) => prevMessage + emojiData.emoji);
   };
 
   return (
-    <div className="sm:sticky fixed w-full bottom-0">
-      <div className="flex items-center px-2 py-4 border-t bg-background gap-1 relative overflow-hidden justify-between">
-        <div>
-          <Paperclip
-            className={`cursor-pointer ${
-              image ? "text-primary" : "text-foreground"
-            }`}
-            size={15}
-            onClick={() => document.getElementById("my_modal_3").showModal()}
-          />
-        </div>
-        <button
-          onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-          className="relative"
-        >
-          😊
-        </button>
+    <div className="sticky bottom-0 w-full border-t p-2 bg-background">
+      <div className="relative flex items-center">
+        <FaPaperclip
+          onClick={() => document.getElementById("my_modal_3").showModal()}
+          className={`${
+            image ? "text-primary" : "text-gray-500"
+          } mr-2 cursor-pointer`}
+        />
+        {/* Emoji Picker Button */}
+        <button onClick={() => setShowEmojiPicker(!showEmojiPicker)}>😊</button>
 
         <input
-          type="text"
-          className="sm:flex-1 outline-none focus:outline-none border-none text-foreground w-full"
-          placeholder="Type a message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          type="text"
+          placeholder="Type a message..."
+          className="flex-1 border-none p-2 outline-none"
         />
-        <Send className="cursor-pointer text-primary" onClick={sendMessage} />
+
+        <FaPaperPlane
+          onClick={() => sendMessage()}
+          className="text-primary cursor-pointer ml-2"
+        />
 
         {showEmojiPicker && (
           <div className="absolute right-0 bottom-full p-2">
-            <EmojiPicker onEmojiClick={handleEmojiClick} width="100%" />
+            <EmojiPicker
+              onEmojiClick={handleEmojiClick}
+              disableAutoFocus={true}
+              width="100%"
+            />
           </div>
         )}
+
+        {/* Image Upload Modal */}
         <dialog id="my_modal_3" className="modal">
           <div className="modal-box">
             <form method="dialog">
               {imagePreview && (
                 <img
                   src={imagePreview}
-                  className="w-60 max-h-60 object-cover rounded-md my-2 block"
+                  alt="Uploaded"
+                  className="max-h-60 w-60 mb-4"
                 />
               )}
-              <input type="file" onChange={handleFileChange} accept="image/*" />
-              <button
-                className="rounded-md bg-primary text-background py-1.5 px-3 w-max my-2 cursor-pointer"
-                onClick={() => handleUpload()}
+              <input type="file" accept="image/*" onChange={handleFileChange} />
+              <div
+                onClick={() => {
+                  handleUpload();
+                }}
+                className="btn btn-sm btn-primary"
               >
                 Upload
-              </button>
-
-              <div>
-                <progress value={uploadProgress} max="100"></progress>
               </div>
-
-              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                ✕
-              </button>
+              <progress value={uploadProgress} max="100"></progress>
             </form>
+            <button
+              onClick={() => document.getElementById("my_modal_3").close()}
+              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+            >
+              ✕
+            </button>
           </div>
         </dialog>
       </div>
     </div>
   );
 }
+
+export default MessageInput;
