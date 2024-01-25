@@ -131,13 +131,22 @@ export default function Chatroom({ user, selectedChatroom }) {
         </div>
       )}
 
-      <MessageInput
-        sendMessage={sendMessage}
-        message={message}
-        setMessage={setMessage}
-        setImage={setImage}
-        image={image}
-      />
+      {selectedChatroom ? (
+        <MessageInput
+          sendMessage={sendMessage}
+          message={message}
+          setMessage={setMessage}
+          setImage={setImage}
+          image={image}
+        />
+      ) : (
+        <input
+          type="text"
+          className="w-full p-4 focus:outline-none border-t block placeholder-primary/60"
+          disabled
+          placeholder="Select a user to start chatting..."
+        />
+      )}
     </div>
   );
 }
