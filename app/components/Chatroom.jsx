@@ -22,7 +22,6 @@ export default function Chatroom({ user, selectedChatroom }) {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [image, setImage] = useState(null);
-  const messagesContainerRef = useRef(null);
 
   const sendMessage = async (e) => {
     const messageCollection = collection(firestore, "messages");
@@ -51,12 +50,6 @@ export default function Chatroom({ user, selectedChatroom }) {
     } catch (error) {
       console.log(error);
     }
-
-    // Scroll to the bottom after sending a message
-    if (messagesContainerRef.current) {
-      messagesContainerRef.current.scrollTop =
-        messagesContainerRef.current.scrollHeight + 100;
-    }
   };
 
   useEffect(() => {
@@ -80,17 +73,10 @@ export default function Chatroom({ user, selectedChatroom }) {
     return unsubscribe;
   }, [chatroomId]);
 
-  useEffect(() => {
-    // Scroll to the bottom when messages change
-    if (messagesContainerRef.current) {
-      messagesContainerRef.current.scrollTop =
-        messagesContainerRef.current.scrollHeight + 100;
-    }
-  }, [messages]);
   return (
     <div className="h-screen relative flex flex-col overflow-y-auto">
       {selectedChatroom ? (
-        <div className="flex-1" ref={messagesContainerRef}>
+        <div className="flex-1">
           <div className="border-b fixed top-0 flex gap-2 items-center p-2 bg-background z-40 w-full">
             <div className="h-10 w-10">
               <img

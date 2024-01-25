@@ -112,19 +112,35 @@ function MessageInput({ sendMessage, message, setMessage, image, setImage }) {
                 <img
                   src={imagePreview}
                   alt="Uploaded"
-                  className="max-h-60 w-60 mb-4"
+                  className="max-h-60 w-60 my-4 rounded-sm"
                 />
               )}
-              <input type="file" accept="image/*" onChange={handleFileChange} />
+              <label
+                htmlFor="fileImage"
+                className="font-semibold cursor-pointer"
+              >
+                {imagePreview ? "File selected" : "Click to select a file"}
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                id="fileImage"
+                className="hidden"
+              />
               <div
                 onClick={() => {
                   handleUpload();
                 }}
-                className="btn btn-sm btn-primary"
+                className="rounded-md bg-primary px-3 py-1 text-background w-max my-2"
               >
                 Upload
               </div>
-              <progress value={uploadProgress} max="100"></progress>
+              <progress
+                value={uploadProgress}
+                max="100"
+                className="rounded-sm block"
+              ></progress>
             </form>
             <button
               onClick={() => document.getElementById("my_modal_3").close()}
