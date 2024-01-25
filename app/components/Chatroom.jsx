@@ -55,7 +55,7 @@ export default function Chatroom({ user, selectedChatroom }) {
     // Scroll to the bottom after sending a message
     if (messagesContainerRef.current) {
       messagesContainerRef.current.scrollTop =
-        messagesContainerRef.current.scrollHeight;
+        messagesContainerRef.current.scrollHeight + 100;
     }
   };
 
@@ -83,14 +83,14 @@ export default function Chatroom({ user, selectedChatroom }) {
   useEffect(() => {
     // Scroll to the bottom when messages change
     if (messagesContainerRef.current) {
-      messagesContainerRef.current.scrollTop = window.screen.availHeight;
+      messagesContainerRef.current.scrollTop =
+        messagesContainerRef.current.scrollHeight + 100;
     }
   }, [messages]);
-
   return (
     <div className="h-screen relative flex flex-col overflow-y-auto">
       {selectedChatroom ? (
-        <div ref={messagesContainerRef} className="flex-1">
+        <div className="flex-1" ref={messagesContainerRef}>
           <div className="border-b fixed top-0 flex gap-2 items-center p-2 bg-background z-40 w-full">
             <div className="h-10 w-10">
               <img
@@ -103,7 +103,7 @@ export default function Chatroom({ user, selectedChatroom }) {
             </div>
             <h1 className="font-semibold text-lg">{other.name}</h1>
           </div>
-          <div className="flex-1 flex flex-col gap-3 sm:px-4 px-2 sm:pb-3 pb-20 pt-[70px] w-full">
+          <div className="flex flex-col gap-3 sm:px-4 px-2 sm:pb-3 pb-20 pt-[70px]">
             {messages.map((message, index) => (
               <MessageCard
                 message={message}
